@@ -1,0 +1,21 @@
+[
+  {
+    "modid": "superflatcaves",
+    "name": "Superflat Caves",
+    "description": "A bedrock to sky biome with cave generation.",
+    "version": "${version}",
+    "credits": "Noobanidus",
+    "logoFile": "assets/superflatcaves/textures/logo.png",
+    "mcversion": "${mc_version}",
+    "url": "http://github.com/noobanidus/superflatcaves",
+    "updateUrl": "",
+    "authorList": [
+      "Noobanidus"
+    ],
+    "parent": "",
+    "screenshots": [],
+    "dependencies": [
+      "forge"
+    ]
+  }
+]
