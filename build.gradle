@@ -29,6 +29,12 @@ minecraft {
     replace "GRADLE:VERSION", project.version
 }
 
+jar {
+    manifest {
+        attributes 'FMLAT': 'superflat_at.cfg'
+    }
+}
+
 runClient {
     args '--username', 'caving'
 }
