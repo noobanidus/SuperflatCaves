@@ -1,5 +1,8 @@
 package com.noobanidus.superflatcaves;
 
+import net.minecraft.world.DimensionType;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -31,6 +34,15 @@ public class SuperflatCaves {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        if (SuperflatConfig.SPAWN_IN_CAVES) {
+            try {
+                DimensionManager.unregisterDimension(0);
+                DimensionManager.registerDimension(0, DimensionType.register("OVERWORLD_CAVES", "", 0, WorldProviderCaves.class, true));
+            } catch (Exception e) {
+                LOG.error("Unable to replace overworld provider with overworld_caves provider. Void spawning will now be problematic.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @Mod.EventHandler
@@ -45,4 +57,19 @@ public class SuperflatCaves {
         }
     }
 
+    @Config(modid=MODID)
+    public static class SuperflatConfig {
+        @Config.Comment("Set to false to prevent caves from generating above 128 (Vanilla Default")
+        @Config.Name("Allow Higher Caves")
+        public static boolean HIGHER_CAVES = true;
+
+        @Config.Comment("Set to whatever value between 1-256 you wish caves to stop at")
+        @Config.Name("Cave Height Limit")
+        @Config.RangeInt(min=1, max=256)
+        public static int CAVE_HEIGHT = 256;
+
+        @Config.Comment("Set to false to prevent replacement of the World Provider. This means that stone-filled worlds will have their spawn point above the world. Set to true to replace, meaning a suitable cave will be found.")
+        @Config.Name("Replace Provider For Spawning-In-Caves")
+        public static boolean SPAWN_IN_CAVES = true;
+    }
 }

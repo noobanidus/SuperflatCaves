@@ -19,11 +19,9 @@ import java.util.Map;
 
 public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
     private World world;
-    private MapGenBase caveGenerator = new MapGenCaves();
+    private MapGenBase caveGenerator = (SuperflatCaves.SuperflatConfig.HIGHER_CAVES) ? new MapGenCaves256() : new MapGenCaves();
     private MapGenBase ravineGenerator = new MapGenRavine();
 
-    private boolean hasCaves = false;
-    private boolean hasRavines = false;
     private WorldGenLakes waterLakeGenerator = null;
     private WorldGenLakes lavaLakeGenerator = null;
 
@@ -31,6 +29,8 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
     private final boolean hasDungeons;
     private final boolean hasAnimals;
     private final boolean hasIce;
+    private final boolean hasCaves;
+    private final boolean hasRavines;
 
     public ChunkGeneratorFlatCaves(World worldIn, long seed, boolean generateStructures, String flatGeneratorSettings) {
         super(worldIn, seed, generateStructures, flatGeneratorSettings);
