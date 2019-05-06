@@ -6,6 +6,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.chunk.Chunk;
 
+import java.util.List;
+
 public class WorldProviderCaves extends WorldProviderSurface {
     @Override
     public BlockPos getRandomizedSpawnPoint() {
@@ -18,6 +20,8 @@ public class WorldProviderCaves extends WorldProviderSurface {
         int attempts = 0;
         Chunk chunk = world.getChunk(ret);
 
+        List<Block> spawnSafe = SuperflatCaves.SuperflatConfig.safeSpawnBlocks();
+
         do {
             while (ret.getY() > 0) {
                 ret = ret.down();
@@ -26,7 +30,9 @@ public class WorldProviderCaves extends WorldProviderSurface {
                 if (block.isAir(state, world, ret)) {
                     air++;
                 } else {
-                    if (air >= 2) return ret;
+                    if (air >= 2) {
+                        if (spawnSafe.contains(block)) return ret;
+                    }
                     air = 0;
                 }
             }

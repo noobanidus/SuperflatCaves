@@ -1,5 +1,8 @@
 package com.noobanidus.superflatcaves;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Config;
@@ -11,6 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 @Mod(modid = SuperflatCaves.MODID, name = SuperflatCaves.MODNAME, version = SuperflatCaves.VERSION, dependencies = SuperflatCaves.DEPENDS)
@@ -71,5 +77,34 @@ public class SuperflatCaves {
         @Config.Comment("Set to false to prevent replacement of the World Provider. This means that stone-filled worlds will have their spawn point above the world. Set to true to replace, meaning a suitable cave will be found.")
         @Config.Name("Replace Provider For Spawning-In-Caves")
         public static boolean SPAWN_IN_CAVES = true;
+
+        @Config.Comment("List of blocks that are suitable for spawning on")
+        @Config.Name("Spawn Blocks")
+        public static String[] SPAWN_BLOCKS = new String[] {
+                "minecraft:stone",
+        };
+
+        private static List<Block> safeBlocks = null;
+
+        public static List<Block> safeSpawnBlocks () {
+            if (safeBlocks == null) {
+                safeBlocks = new ArrayList<>();
+                for (String blockName : SPAWN_BLOCKS) {
+                    Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
+                    if (block == null || block == Blocks.AIR) {
+                        SuperflatCaves.LOG.info("Invalid resource location for block: " + blockName);
+                    } else {
+                        safeBlocks.add(block);
+                    }
+                }
+
+                if (safeBlocks.isEmpty()) {
+                    safeBlocks.add(Blocks.STONE);
+                }
+            }
+
+            return safeBlocks;
+        }
+
     }
 }
