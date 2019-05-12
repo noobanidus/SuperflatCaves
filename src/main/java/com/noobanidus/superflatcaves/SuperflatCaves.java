@@ -4,14 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,6 +51,12 @@ public class SuperflatCaves {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+    }
+
+    @Mod.EventHandler
+    public void onServerStarting (FMLServerStartingEvent event) {
+        World world = DimensionManager.getWorld(0);
+        world.setSeaLevel(23);
     }
 
     @Mod.EventHandler
