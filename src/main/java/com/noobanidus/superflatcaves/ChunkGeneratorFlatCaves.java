@@ -36,7 +36,12 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
         super(worldIn, seed, generateStructures, flatGeneratorSettings);
 
         this.world = worldIn;
+
+        SuperflatCaves.LOG.info(caveGenerator.getClass().toString());
+
         caveGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(caveGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE);
+
+        SuperflatCaves.LOG.info(caveGenerator.getClass().toString());
 
         ravineGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(ravineGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE);
 
@@ -82,13 +87,13 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
         }
 
         if (map.containsKey("lake")) waterLakeGenerator = new WorldGenLakes(Blocks.WATER);
-        if (map.containsKey("laval_lake")) lavaLakeGenerator = new WorldGenLakes(Blocks.LAVA);
+        if (map.containsKey("lava_lake")) lavaLakeGenerator = new WorldGenLakes(Blocks.LAVA);
         this.hasCaves = map.containsKey("caves");
         this.hasRavines = map.containsKey("ravines");
         this.hasDungeons = map.containsKey("dungeon");
         this.hasDecoration = map.containsKey("decoration");
         this.hasAnimals = map.containsKey("animals");
-        this.hasIce = map.containsKey("iec");
+        this.hasIce = map.containsKey("ice");
     }
 
     @Override

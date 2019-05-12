@@ -20,6 +20,13 @@ public class WorldTypeFlat extends WorldType {
     }
 
     @Override
+    public net.minecraft.world.biome.BiomeProvider getBiomeProvider(World world)
+    {
+        net.minecraft.world.gen.FlatGeneratorInfo flatgeneratorinfo = net.minecraft.world.gen.FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
+        return new net.minecraft.world.biome.BiomeProviderSingle(net.minecraft.world.biome.Biome.getBiome(flatgeneratorinfo.getBiome(), net.minecraft.init.Biomes.DEFAULT));
+    }
+
+    @Override
     public net.minecraft.world.gen.IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
         if (this == FLAT)
             return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);

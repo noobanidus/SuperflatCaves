@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.2.0"
+version = "1.2.1"
 group = "com.noobanidus.superflatcaves"
 archivesBaseName = "superflatcaves"
 
@@ -94,6 +94,7 @@ repositories {
 
 dependencies {
     deobfCompile 'void-island-control:voidislandcontrol:1.5.3'
+    deobfCompile 'cave-generator:CaveGenerator:0.14'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'

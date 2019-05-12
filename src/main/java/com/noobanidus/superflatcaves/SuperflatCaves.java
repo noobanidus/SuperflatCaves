@@ -78,33 +78,8 @@ public class SuperflatCaves {
         @Config.Name("Replace Provider For Spawning-In-Caves")
         public static boolean SPAWN_IN_CAVES = true;
 
-        @Config.Comment("List of blocks that are suitable for spawning on")
-        @Config.Name("Spawn Blocks")
-        public static String[] SPAWN_BLOCKS = new String[] {
-                "minecraft:stone",
-        };
-
-        private static List<Block> safeBlocks = null;
-
-        public static List<Block> safeSpawnBlocks () {
-            if (safeBlocks == null) {
-                safeBlocks = new ArrayList<>();
-                for (String blockName : SPAWN_BLOCKS) {
-                    Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
-                    if (block == null || block == Blocks.AIR) {
-                        SuperflatCaves.LOG.info("Invalid resource location for block: " + blockName);
-                    } else {
-                        safeBlocks.add(block);
-                    }
-                }
-
-                if (safeBlocks.isEmpty()) {
-                    safeBlocks.add(Blocks.STONE);
-                }
-            }
-
-            return safeBlocks;
-        }
-
+        @Config.Comment("Number of times to attempt to find a spawn location.")
+        @Config.Name("Spawn Location Attempts")
+        public static int ATTEMPTS = 50;
     }
 }
