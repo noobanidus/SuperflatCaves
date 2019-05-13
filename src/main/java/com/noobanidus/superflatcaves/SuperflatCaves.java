@@ -85,5 +85,29 @@ public class SuperflatCaves {
         @Config.Comment("Number of times to attempt to find a spawn location.")
         @Config.Name("Spawn Location Attempts")
         public static int ATTEMPTS = 50;
+
+        @Config.Comment("The average ground level the world provider should return for the overworld")
+        @Config.Name("Average ground level")
+        public static int AVERAGE_GROUND_LEVEL = 23;
+
+        @Config.Comment("Set to true to override the celestial angle and prevent the day/night cycle from having a visual")
+        @Config.Name("Override Celestial Angle")
+        public static boolean OVERRIDE_CELESTIAL_ANGLE = true;
+
+        @Config.Comment("Set to the value you wish the sun/moon to be at. 0f = midnight")
+        @Config.Name("Celestial Angle Value")
+        public static float CELESTIAL_ANGLE = 0.0f;
+
+        @Config.Comment("Set to false to prevent the sky from being coloured")
+        @Config.Name("Sky Coloured")
+        public static boolean SKY_COLOURED = false;
+
+        @Config.Comment("Set to true to override x/y shows fog from returning default and using the value specified below")
+        @Config.Name("Override Fog Value")
+        public static boolean OVERRIDE_FOG = true;
+
+        @Config.Comment("Set to true or false to determine if all coordinates show or don't show fog")
+        @Config.Name("Fog Value (Overriden)")
+        public static boolean FOG_VALUE = false;
     }
 }

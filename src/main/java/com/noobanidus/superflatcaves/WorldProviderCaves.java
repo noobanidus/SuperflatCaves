@@ -45,38 +45,31 @@ public class WorldProviderCaves extends WorldProviderSurface {
 
     @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
-        return 0.0f;
+        if (SuperflatCaves.SuperflatConfig.OVERRIDE_CELESTIAL_ANGLE) {
+            return SuperflatCaves.SuperflatConfig.CELESTIAL_ANGLE;
+        }
+
+        return super.calculateCelestialAngle(worldTime, partialTicks);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean isSkyColored() {
-        return false;
-    }
-
-    @Override
-    public boolean isSurfaceWorld() {
-        return true;
-    }
-
-    @Override
-    public boolean canRespawnHere() {
-        return true;
+        return SuperflatCaves.SuperflatConfig.SKY_COLOURED;
     }
 
     @Override
     public int getAverageGroundLevel() {
-        return 23;
+        return SuperflatCaves.SuperflatConfig.AVERAGE_GROUND_LEVEL;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean doesXZShowFog(int x, int z) {
-        return false;
-    }
+        if (SuperflatCaves.SuperflatConfig.OVERRIDE_FOG) {
+            return SuperflatCaves.SuperflatConfig.FOG_VALUE;
+        }
 
-    @Override
-    public boolean hasSkyLight() {
-        return false;
+        return super.doesXZShowFog(x, z);
     }
 }
