@@ -45,6 +45,7 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
 
         ravineGenerator = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(ravineGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE);
 
+
         this.flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
         Map<String, Map<String, String>> map = this.flatWorldGenInfo.getWorldFeatures();
 
@@ -139,7 +140,7 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
 
     @Override
     public void populate(int x, int z) {
-        //net.minecraft.block.BlockFalling.fallInstantly = true;
+        net.minecraft.block.BlockFalling.fallInstantly = true;
         int i = x * 16;
         int j = z * 16;
         BlockPos blockpos = new BlockPos(i, 0, j);
@@ -199,6 +200,6 @@ public class ChunkGeneratorFlatCaves extends ChunkGeneratorFlat {
         }
 
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.random, x, z, flag);
-        //net.minecraft.block.BlockFalling.fallInstantly = false;
+        net.minecraft.block.BlockFalling.fallInstantly = false;
     }
 }

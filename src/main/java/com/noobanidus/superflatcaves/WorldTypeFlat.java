@@ -2,6 +2,7 @@ package com.noobanidus.superflatcaves;
 
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.gen.IChunkGenerator;
 
 public class WorldTypeFlat extends WorldType {
     public WorldTypeFlat(String name) {
@@ -20,6 +21,11 @@ public class WorldTypeFlat extends WorldType {
     }
 
     @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
     public net.minecraft.world.biome.BiomeProvider getBiomeProvider(World world)
     {
         net.minecraft.world.gen.FlatGeneratorInfo flatgeneratorinfo = net.minecraft.world.gen.FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
@@ -28,8 +34,6 @@ public class WorldTypeFlat extends WorldType {
 
     @Override
     public net.minecraft.world.gen.IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
-        if (this == FLAT)
-            return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
-        return super.getChunkGenerator(world, generatorOptions);
+        return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     }
 }

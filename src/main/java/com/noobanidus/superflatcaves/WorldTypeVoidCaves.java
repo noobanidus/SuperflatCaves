@@ -40,9 +40,7 @@ public class WorldTypeVoidCaves extends WorldTypeVoid {
             String genSettings = "3;1*minecraft:air";
             if (ConfigOptions.worldGenSettings.worldGenType == ConfigOptions.WorldGenSettings.WorldGenType.SUPERFLAT)
                 genSettings = ConfigOptions.worldGenSettings.worldGenSpecialParameters;
-            ChunkGeneratorFlatCaves provider = new ChunkGeneratorFlatCaves(world, world.getSeed(), false, genSettings);
-            world.setSeaLevel(63);
-            return provider;
+        return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), genSettings);
         } else
             return new ChunkGeneratorOverworld(world, world.getSeed(), true, generatorOptions);
     }
