@@ -1,5 +1,8 @@
 package com.noobanidus.superflatcaves;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
@@ -9,6 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 @Mod(modid = SuperflatCaves.MODID, name = SuperflatCaves.MODNAME, version = SuperflatCaves.VERSION, dependencies = SuperflatCaves.DEPENDS)
@@ -48,7 +54,7 @@ public class SuperflatCaves {
     }
 
     @Mod.EventHandler
-    public void onServerStarting(FMLServerStartingEvent event) {
+    public void onServerStarting (FMLServerStartingEvent event) {
         World world = DimensionManager.getWorld(0);
         world.setSeaLevel(23);
     }
@@ -61,7 +67,7 @@ public class SuperflatCaves {
         }
     }
 
-    @Config(modid = MODID)
+    @Config(modid=MODID)
     public static class SuperflatConfig {
         @Config.Comment("Set to false to prevent caves from generating above 128 (Vanilla Default")
         @Config.Name("Allow Higher Caves")
@@ -69,7 +75,7 @@ public class SuperflatCaves {
 
         @Config.Comment("Set to whatever value between 1-256 you wish caves to stop at")
         @Config.Name("Cave Height Limit")
-        @Config.RangeInt(min = 1, max = 256)
+        @Config.RangeInt(min=1, max=256)
         public static int CAVE_HEIGHT = 256;
 
         @Config.Comment("Set to false to prevent replacement of the World Provider. This means that stone-filled worlds will have their spawn point above the world. Set to true to replace, meaning a suitable cave will be found.")

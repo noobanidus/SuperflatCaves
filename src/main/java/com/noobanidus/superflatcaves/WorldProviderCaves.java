@@ -1,40 +1,55 @@
 package com.noobanidus.superflatcaves;
 
-import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldProviderSurface;
-import net.minecraft.world.biome.BiomeProviderSingle;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-
 public class WorldProviderCaves extends WorldProviderSurface {
     @Override
-    protected void init() {
-        super.init();
+    public BlockPos getRandomizedSpawnPoint() {
+        /*BlockPos ret = this.world.getSpawnPoint();
 
-        // TODO: Make this a config
-        this.biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
-    }
+        ret = new BlockPos(ret.getX(), 256, ret.getY());
+        int air = 0;
+        int attempts = 0;
+        Chunk chunk = world.getChunk(ret);
 
-    @Nullable
-    @SideOnly(Side.CLIENT)
-    @Override
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
-    {
-        return null;
+        do {
+            while (ret.getY() > 0) {
+                ret = ret.down();
+                IBlockState state = chunk.getBlockState(ret);
+                Block block = state.getBlock();
+                if (block == Blocks.AIR) {
+                    SuperflatCaves.LOG.info(String.format("Air: %d, Block: %s, Y: %d", air, block.getTranslationKey(), ret.getY()));
+                    air++;
+                } else {
+                    SuperflatCaves.LOG.info(String.format("Air: %d, Block: %s, Y: %d", air, block.getTranslationKey(), ret.getY()));
+                    if (air >= 2 && block != Blocks.LAVA && block != Blocks.FLOWING_LAVA) {
+                        return ret;
+                    }
+                    SuperflatCaves.LOG.info("Resetting air to 0");
+                    air = 0;
+                }
+            }
+
+            SuperflatCaves.LOG.info(String.format("Failed for position X: %d, Z: %d", ret.getX(), ret.getZ()));
+
+            ret = new BlockPos(ret.getX(), 256, ret.getZ()).add(2, 0, 2);
+            attempts++;
+        } while (attempts != SuperflatCaves.SuperflatConfig.ATTEMPTS);
+
+        SuperflatCaves.LOG.error(String.format("Unable to find a suitable spawn location near X: %d, Z: %d after %d attempts. Falling back on default.", ret.getX(), ret.getZ(), SuperflatCaves.SuperflatConfig.ATTEMPTS));*/
+        return super.getRandomizedSpawnPoint();
     }
 
     @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
-        return 0.5f;
-        /*if (SuperflatCaves.SuperflatConfig.OVERRIDE_CELESTIAL_ANGLE) {
+        if (SuperflatCaves.SuperflatConfig.OVERRIDE_CELESTIAL_ANGLE) {
             return SuperflatCaves.SuperflatConfig.CELESTIAL_ANGLE;
         }
 
-        return super.calculateCelestialAngle(worldTime, partialTicks);*/
+        return super.calculateCelestialAngle(worldTime, partialTicks);
     }
 
     @Override
@@ -56,20 +71,5 @@ public class WorldProviderCaves extends WorldProviderSurface {
         }
 
         return super.doesXZShowFog(x, z);
-    }
-
-    @Override
-    public boolean isDaytime() {
-        return false;
-    }
-
-    @Override
-    public boolean canDoLightning(Chunk chunk) {
-        return false;
-    }
-
-    @Override
-    public boolean canDoRainSnowIce(Chunk chunk) {
-        return false;
     }
 }
