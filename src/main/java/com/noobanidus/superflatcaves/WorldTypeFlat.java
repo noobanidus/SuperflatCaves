@@ -28,8 +28,6 @@ public class WorldTypeFlat extends WorldType {
 
     @Override
     public net.minecraft.world.gen.IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
-        if (this == FLAT)
-            return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
-        return super.getChunkGenerator(world, generatorOptions);
+        return new ChunkGeneratorFlatCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     }
 }
