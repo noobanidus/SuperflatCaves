@@ -35,12 +35,14 @@ public class SuperflatCaves {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
-    try {
-      DimensionManager.unregisterDimension(0);
-      DimensionManager.registerDimension(0, DimensionType.register("OVERWORLD_CAVES", "", 0, WorldProviderCaves.class, true));
-    } catch (Exception e) {
-      LOG.error("Unable to replace overworld provider with overworld_caves provider. Void spawning will now be problematic.");
-      e.printStackTrace();
+    if (SuperflatConfig.OVERRIDE_PROVIDER) {
+      try {
+        DimensionManager.unregisterDimension(0);
+        DimensionManager.registerDimension(0, DimensionType.register("OVERWORLD_CAVES", "", 0, WorldProviderCaves.class, true));
+      } catch (Exception e) {
+        LOG.error("Unable to replace overworld provider with overworld_caves provider.");
+        e.printStackTrace();
+      }
     }
   }
 
@@ -108,5 +110,9 @@ public class SuperflatCaves {
     @Config.Comment("Set to true or false to determine if all coordinates show or don't show fog")
     @Config.Name("Fog Value (Overriden)")
     public static boolean FOG_VALUE = false;
+
+    @Config.Comment("Set to false to disable overriding the overworld world provider. Disabling this will prevent fog, sea level, celestial angle, and coloured sky options.")
+    @Config.Name("Disable world provider override")
+    public static boolean OVERRIDE_PROVIDER = true;
   }
 }
